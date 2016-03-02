@@ -17,6 +17,9 @@ RCT_EXPORT_METHOD(show:(NSDictionary *)options) {
     NSString *duration = [options objectForKey:@"duration"];
     NSString *position = [options objectForKey:@"position"];
     NSNumber *addPixelsY = [options objectForKey:@"addPixelsY"];
+    NSString *imageStr = [options objectForKey:@"image"];
+    
+    if (!message || [message length] == 0) return;
     
     if (![position isEqual: @"top"] && ![position isEqual: @"center"] && ![position isEqual: @"bottom"]) {
         RCTLogError(@"invalid position. valid options are 'top', 'center' and 'bottom'");
@@ -34,7 +37,15 @@ RCT_EXPORT_METHOD(show:(NSDictionary *)options) {
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[[[UIApplication sharedApplication]windows]firstObject] makeToast:message duration:durationInt position:position addPixelsY:addPixelsY == nil ? 0 : [addPixelsY intValue]];
+        if (imageStr == nil) {
+            NSString *path = [[NSBundle mainBundle] bundlePath];
+            NSString *imagePath = [path stringByAppendingPathComponent:imageStr];
+            NSData *imageData = [NSData dataWithContentsOfFile:imagePath];
+            UIImage *image = [UIImage imageWithData:imageData];
+            [[[[UIApplication sharedApplication]windows]firstObject] makeToast:message duration:durationInt position:position image:image];
+        } else {
+            [[[[UIApplication sharedApplication]windows]firstObject] makeToast:message duration:durationInt position:position addPixelsY:addPixelsY == nil ? 0 : [addPixelsY intValue]];
+        }
     });
 }
 
