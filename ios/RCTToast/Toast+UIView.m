@@ -98,7 +98,7 @@ static UIView *prevToast = NULL;
 }
 
 - (void)showToast:(UIView *)toast duration:(NSTimeInterval)duration position:(id)point {
-  [self showToast:toast duration:CSToastDefaultDuration position:CSToastDefaultPosition addedPixelsY:0];
+  [self showToast:toast duration:duration position:CSToastDefaultPosition addedPixelsY:0];
 }
 
 - (void)showToast:(UIView *)toast duration:(NSTimeInterval)duration position:(id)point addedPixelsY:(int) addPixelsY  {

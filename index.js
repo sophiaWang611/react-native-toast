@@ -63,6 +63,18 @@ var showToast = function (message, duration, position) {
       );
 };
 
+Toast.showTop = function (message) {
+  showToast(message, "", "top");
+};
+
+Toast.showCenter = function (message) {
+  showToast(message, "", "center");
+};
+
+Toast.showBottom = function (message) {
+  showToast(message, "", "bottom");
+};
+
 Toast.showShortTop = function (message) {
   showToast(message, "short", "top");
 };

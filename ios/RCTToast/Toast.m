@@ -27,7 +27,9 @@ RCT_EXPORT_METHOD(show:(NSDictionary *)options) {
     }
     
     NSInteger durationInt;
-    if ([duration isEqual: @"short"]) {
+    if (!duration || [duration length] == 0) {
+        durationInt = 10000;
+    } else if ([duration isEqual: @"short"]) {
         durationInt = 2;
     } else if ([duration isEqual: @"long"]) {
         durationInt = 5;
